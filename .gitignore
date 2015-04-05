@@ -11,3 +11,9 @@
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
+.Rproj.user
+
+# latex stuff
+*.log
+*.synctex.gz
+*.pdf
