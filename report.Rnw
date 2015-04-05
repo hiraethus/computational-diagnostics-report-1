@@ -1,0 +1,30 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[hidelinks]{hyperref}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\title{Computational Diagnostics:  Assignment 1}
+\author{Mr Michael J. Jones \\
+  \em MSc Bioinformatics and \\
+  \em Computational Genomics}
+\date{\today}
+\maketitle
+
+\section{Needleman and Wunsch Alignment}
+The Needleman and Wunsch alignment algorithm was implemented as an R package and tested quite thoroughly by use of the \verb@testthat@ unit testing framework and uploaded to \href{https://github.com}{github.com}.\footnote{The source-code can be freely downloaded at \url{https://github.com/hiraethus/Needleman-Wunsch}}
+
+As the package uses Hadley Wickham's \verb@devtools@, the package can be easily installed as seen in Figure~\ref{fig:install_needle}. Note that this method will only 
+
+\begin{figure}[h!]
+\label{fig:install_needle}
+<<install>>=
+#  only install hiraethus.needleman.wunsch if not already installed
+if (!("hiraethus.needleman.wunsch" %in% installed.packages())) {
+  devtools::install_github("hiraethus/Needleman-Wunsch")
+}
+# now load the library
+library("hiraethus.needleman.wunsch")
+@
+\caption{How to install this implementation of the Needleman and Wunsch sequence alignment algorithm}
+\end{figure}
+\end{document}
