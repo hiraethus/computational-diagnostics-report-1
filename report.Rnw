@@ -1,6 +1,10 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage[hidelinks]{hyperref}
 \usepackage{Sweave}
+\usepackage{listings}
+\lstset{
+   breaklines=true,
+   basicstyle=\ttfamily}
 
 \begin{document}
 \SweaveOpts{concordance=TRUE}
@@ -30,8 +34,9 @@ library("hiraethus.needleman.wunsch")
 @
 
 \subsection{Demonstrating Needleman-Wunsch implementation}
-The signature for the needleman-wunsch function is \verb@function (seq1, seq2, gap = 0, match = 1, mismatch = 0)@.
-We will compare the result of doing a sequence alignment on two example strings using different parameters for the scoring 
+The signature for the needleman-wunsch function is \begin{verbatim}function (seq1, seq2, gap = 0, match = 1, mismatch = 0).\end{verbatim}
+
+We will compare the result of doing a sequence alignment on two example sequences using different parameters for the scoring 
 function.
 
 <<>>=
@@ -57,5 +62,20 @@ gap <- -1
 second.alignment <- needle(sequence1, sequence2, gap, match, mismatch)
 print(second.alignment)
 @
+
+
+The traceback and score matrices are stored in the result object calculated by the \verb@needle@ function.
+
+<<>>=
+first.alignment.traceback <- first.alignment$traceback.matrix
+second.alignment.traceback <- second.alignment$traceback.matrix
+traceback.mismatches <- length(which(
+  first.alignment.traceback != second.alignment.traceback))
+print(traceback.mismatches)
+@
+
+Even though the two alignments returned were equal, the actual traceback matrices used to calculate the sequence alignments 
+yield a number of different results as well. We can see from the above code that $\Sexpr{traceback.mismatches}$ mismatches 
+are found between the two traceback matrices.
 
 \end{document}
