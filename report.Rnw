@@ -20,8 +20,9 @@ options(width=60)
 @
 
 \section{Needleman and Wunsch Alignment}
-The Needleman and Wunsch alignment algorithm was implemented as an R package and tested quite thoroughly by use of the \verb@testthat@ unit testing framework and uploaded to \href{https://github.com}{github.com}.\footnote{The source-code can be freely downloaded at \url{https://github.com/hiraethus/Needleman-Wunsch}}
+The Needleman and Wunsch sequence alignment algorithm was implemented as an R package and tested thoroughly by use of the \verb@testthat@ unit testing framework and uploaded to \href{https://github.com}{github.com}.\footnote{The source-code can be freely downloaded at \url{https://github.com/hiraethus/Needleman-Wunsch}}
 
+\subsection{Installation}
 As the package uses Hadley Wickham's \verb@devtools@, the package can be easily installed. Note that this method will only work with distributions of R using Linux and Mac OS X.
 
 <<>>=
@@ -36,33 +37,30 @@ library("hiraethus.needleman.wunsch")
 \subsection{Demonstrating Needleman-Wunsch implementation}
 The signature for the needleman-wunsch function is \begin{verbatim}function (seq1, seq2, gap = 0, match = 1, mismatch = 0).\end{verbatim}
 
-We will compare the result of doing a sequence alignment on two example sequences using different parameters for the scoring 
-function.
+We will compare the result of doing a sequence alignment on the two example sequences
+\begin{itemize}
+  \item $sequence1 \leftarrow ``\Sexpr{sequence1 <- "ACCCGGTCGTCAATTA"}$''
+  \item $sequence2 \leftarrow ``\Sexpr{sequence2 <- "ACCACCGGTTGGTCCAATAA"}$''
+\end{itemize}
+
+using different parameters for the scoring 
+function. Firstly, let us set the parameters as $match \leftarrow \Sexpr{match <- 1}$, $mismatch \leftarrow \Sexpr{mismatch <- -1}$ and $gap \leftarrow \Sexpr{gap <- -1}$.
 
 <<>>=
-# given
-sequence1 <- "ACCCGGTCGTCAATTA"
-sequence2 <- "ACCACCGGTTGGTCCAATAA"
-
-match <- 1
-mismatch <- -1
-gap <- -1
-
 first.alignment <- needle(sequence1, sequence2, gap, match, mismatch)
 print(first.alignment)
 @
 
-If we change the parameters, say by making the mismatch penalty zero, we can still see that in this case, the alignments are the same but the maxscore is higher.
-<<>>=
-# given
-match <- 1
-mismatch <- 0
-gap <- -1
+The alignment yielded a near perfect alignment between the two sequences. Only one misalignment occurred.
 
+If we change the parameters, say by making the mismatch penalty zero, we can still see that in this case, the alignments are the same but the maxscore is higher. This time, the parameters are $match \leftarrow \Sexpr{match <- 1}$, $mismatch \leftarrow \Sexpr{mismatch <- 0}$ and $gap \leftarrow \Sexpr{gap <- -1}$.
+
+<<>>=
 second.alignment <- needle(sequence1, sequence2, gap, match, mismatch)
 print(second.alignment)
 @
 
+Again, we observe exactly the same alignment however, we get a different maxscore.
 
 The traceback and score matrices are stored in the result object calculated by the \verb@needle@ function.
 
@@ -87,8 +85,7 @@ score.mismatches <- length(which(
 print(score.mismatches)
 @
 
-In the case of the score matrices, we see that $\Sexpr{score.mismatches}$ mismatches were found between the alignment 
-score matrices where a penalty was made for a mismatch.
+In the case of the score matrices, we see that $\Sexpr{score.mismatches}$ mismatches were found.
 
 
 \end{document}
