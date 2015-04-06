@@ -27,4 +27,45 @@ library("hiraethus.needleman.wunsch")
 @
 \caption{How to install this implementation of the Needleman and Wunsch sequence alignment algorithm}
 \end{figure}
+
+\subsection{Demonstrating Needleman-Wunsch implementation}
+The signature for the needleman-wunsch function is \verb@function (seq1, seq2, gap = 0, match = 1, mismatch = 0)@.
+We will compare the result of doing a sequence alignment on two example strings using different parameters for the scoring 
+function.
+
+\begin{figure}[h!]
+\label{fig:firstneedleman}
+<<firstneedleman>>=
+# given
+sequence1 <- "ACCCGGTCGTCAATTA"
+sequence2 <- "ACCACCGGTTGGTCCAATAA"
+
+match <- 1
+mismatch <- -1
+gap <- -1
+
+first.alignment <- needle(sequence1, sequence2, gap, match, mismatch)
+print(first.alignment)
+@
+\caption{}
+\end{figure}
+
+\begin{figure}[h!]
+\label{fig:secondneedleman}
+<<secondneedleman>>=
+# given
+match <- 1
+mismatch <- 0
+gap <- -1
+
+second.alignment <- needle(sequence1, sequence2, gap, match, mismatch)
+print(second.alignment)
+@
+\caption{}
+\end{figure}
+
+If we change the parameters, say by making the mismatch penalty zero, we can still see that in this case (see Figure~\ref{fig:secondneedleman}), the alignments are the same but the maxscore is higher.
+
+
+\end{document}
 \end{document}
