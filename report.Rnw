@@ -78,4 +78,17 @@ Even though the two alignments returned were equal, the actual traceback matrice
 yield a number of different results as well. We can see from the above code that $\Sexpr{traceback.mismatches}$ mismatches 
 are found between the two traceback matrices.
 
+The score matrices used to calculate the $maxscore$ in our sequence alignment can be compared in the same way.
+<<>>=
+first.alignment.score <- first.alignment$score.matrix
+second.alignment.score <- second.alignment$score.matrix
+score.mismatches <- length(which(
+  first.alignment.score != second.alignment.score))
+print(score.mismatches)
+@
+
+In the case of the score matrices, we see that $\Sexpr{score.mismatches}$ mismatches were found between the alignment 
+score matrices where a penalty was made for a mismatch.
+
+
 \end{document}
