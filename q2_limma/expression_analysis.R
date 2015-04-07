@@ -1,14 +1,19 @@
+rm(list=ls())
 source("http://bioconductor.org/biocLite.R")
 biocLite() # install all the main biocLite packages
 biocLite("limma")
 biocLite("GEOquery")
 biocLite("affy")
 biocLite("affyPLM")
+biocLite("hgu133a2.db")
+biocLite("annotate")
 
 library("limma")
 library("GEOquery")
 library("affy")
 library("affyPLM")
+library("hgu133a2.db")
+library("annotate")
 
 # retrieve geneset
 G.ExpressionSet <- GEOquery::getGEO("GSE24249", GSEMatrix=TRUE)[[1]] # this is 51.8MB - will take some time to download
@@ -23,4 +28,28 @@ design <- cbind(case = c(1,1,1,0,0,0),
 fit <- limma::lmFit(G.ExpressionSet, design)
 fit <- limma::eBayes(fit)
 
-result <- topTable(fit, coef=2, n=length(featureNames(G.ExpressionSet)), adjust="fdr")
+# Extract a table of the top-ranked genes from a linear model fit.
+result <- topTable(fit, coef=2, n=length(featureNames(G.ExpressionSet)), adjust="fdr", sort.by="p", p.value = 0.05)
+
+# How many probesets do you find differentially expressed using a 
+# false discovery rate (FDR) of 0.05?
+
+# Show a table of the top 15 differentially expressed probesets along with 
+# their gene symbol, log fold change, average expression, t-score, p-value, adjusted p-value,
+# and B statistic
+# TODO
+top.15.results <- head(result, 15)
+
+# add the gene symbols
+top.15.probe.ids <- row.names(top.15.results)
+top.15.gene.symbols <- annotate::getSYMBOL(top.15.probe.ids, "hgu133a2")
+top.15.results <- cbind(gene.symbols=top.15.gene.symbols, top.15.results)
+top.15.results <- cbind(top.15.results$gene.symbols, top.15.results$logFC,
+                        top.15.results$AveExpr, top.15.results$t, 
+                        top.15.results$P.Value, top.15.results$adj.P.Val, top.15.results$B)
+top.15.results
+
+probe_ids <- row.names(result)
+convert <- annotate::getSYMBOL(probe_ids, "hgu133a2")
+length(which(is.na(convert)))
+length(probe_ids)
