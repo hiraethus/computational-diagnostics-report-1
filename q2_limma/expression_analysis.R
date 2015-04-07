@@ -22,8 +22,7 @@ G.ExpressionSet <- GEOquery::getGEO("GSE24249", GSEMatrix=TRUE)[[1]] # this is 5
 # affyPLM::normalize.ExpressionSet.quantiles(G.ExpressionSet)
 
 # design matrix
-design <- cbind(case = c(1,1,1,0,0,0),
-                control = c(0,0,0,1,1,1))
+design <- cbind(Grp1=1,Grp2vs1=c(0,0,0,1,1,1))
 
 fit <- limma::lmFit(G.ExpressionSet, design)
 fit <- limma::eBayes(fit)
