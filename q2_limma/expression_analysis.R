@@ -40,13 +40,13 @@ num.diff.exp.probesets <- nrow(result)
 all.probe.ids <- featureNames(G.ExpressionSet)
 all.entrez.gene.ids <- annotate::getSYMBOL(all.probe.ids, "hgu133a2")
 # remove NA values
-all.entrez.gene.ids <- all.entrez.gene.ids[!is.na(all.entrez.gene.ids)]
+all.entrez.gene.ids <- unique(all.entrez.gene.ids[!is.na(all.entrez.gene.ids)])
 count.total.gene.ids <- length(all.entrez.gene.ids)
 
 diff.expressed.probe.ids <- rownames(result)
 diff.expressed.gene.ids <- annotate::getSYMBOL(diff.expressed.probe.ids, "hgu133a2")
 # remove NA values
-diff.expressed.gene.ids <- diff.expressed.gene.ids[!is.na(diff.expressed.gene.ids)]
+diff.expressed.gene.ids <- unique(diff.expressed.gene.ids[!is.na(diff.expressed.gene.ids)])
 count.diff.expressed.gene.ids <- length(diff.expressed.gene.ids)
 
 
