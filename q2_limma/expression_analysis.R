@@ -64,3 +64,20 @@ top.15.results <- data.frame(top.15.results$gene.symbols, top.15.results$logFC,
                         top.15.results$P.Value, top.15.results$adj.P.Val, top.15.results$B)
 names(top.15.results) <- substr(names(top.15.results), start = 16, stop=1000)
 row.names(top.15.results) <- top.15.probe.ids
+
+# === q3 ====================================================================
+biocLite("topGO")
+all.genes <- result$adj.P.Val
+names(all.genes) <- row.names(result)
+
+## define a function to select the "significant" genes
+topDiffGenes <- function(allScore) {
+  return(allScore < 0.05)
+}
+
+bpGOdata <- new("topGOdata",
+                    ontology = "BP",
+                    allGenes = all.genes,
+                    geneSel = topDiffGenes,
+                    annot = annFUN.db,
+                    affyLib ="hgu133a2")
