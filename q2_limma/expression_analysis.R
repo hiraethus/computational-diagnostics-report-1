@@ -32,11 +32,20 @@ result <- topTable(fit, coef=2, n=length(featureNames(G.ExpressionSet)), adjust=
 
 # How many probesets do you find differentially expressed using a 
 # false discovery rate (FDR) of 0.05?
+# Answer
+num.diff.exp.probesets <- nrow(result)
+
+# How many unique entrez gene identifiers are in the dataset and how many unique entre identifiers are differentially 
+# expressed?
+all.probe.ids <- featureNames(G.ExpressionSet)
+all.entrez.gene.ids <- annotate::getSYMBOL(all.probe.ids, "hgu133a2")
+# remove NA values
+all.entrez.gene.ids <- all.entrez.gene.ids[!is.na(all.entrez.gene.ids)]
+count.total.gene.ids <- length(all.entrez.gene.ids)
 
 # Show a table of the top 15 differentially expressed probesets along with 
 # their gene symbol, log fold change, average expression, t-score, p-value, adjusted p-value,
 # and B statistic
-# TODO
 top.15.results <- head(result, 15)
 
 # add the gene symbols
