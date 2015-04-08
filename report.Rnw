@@ -1,7 +1,7 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[hidelinks]{hyperref}
 \usepackage{Sweave}
 \usepackage{listings}
+\usepackage[hidelinks]{hyperref}
 \lstset{
    breaklines=true,
    basicstyle=\ttfamily}
@@ -92,4 +92,26 @@ In the case of the score matrices, we see that $\Sexpr{score.mismatches}$ mismat
 # clear env
 rm(list=ls())
 @
+
+\section{Differential Gene Expression Analysis}
+
+\subsection{Running the script}
+% make sure computational-diagnostics-report-1 public before submit
+The script for performing this element of the assignment can be downloaded from the url 
+\begin{verbatim}
+https://raw.githubusercontent.com/hiraethus/computational-diagnostics-report-1/
+  master/q2_limma/expression_analysis.R
+\end{verbatim}
+and is also included in the appendix of this document.
+
+<<echo=FALSE, print=FALSE, results=hide>>=
+source("q2_limma/expression_analysis.R")
+@
+\subsection{Results}
+\subsubsection{How many probesets do you find differentially expressed using a false discovery rate (FDR) of 0.05?}
+\Sexpr{num.diff.exp.probesets} are differentially expressed given an FDR of 0.05.
+
+%TODO add more answers
+
+% TODO: APPENDIX- Add all code at the end...will be horrible.
 \end{document}
