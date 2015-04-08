@@ -35,13 +35,20 @@ result <- topTable(fit, coef=2, n=length(featureNames(G.ExpressionSet)), adjust=
 # Answer
 num.diff.exp.probesets <- nrow(result)
 
-# How many unique entrez gene identifiers are in the dataset and how many unique entre identifiers are differentially 
+# How many unique entrez gene identifiers are in the dataset and how many unique entrez identifiers are differentially 
 # expressed?
 all.probe.ids <- featureNames(G.ExpressionSet)
 all.entrez.gene.ids <- annotate::getSYMBOL(all.probe.ids, "hgu133a2")
 # remove NA values
 all.entrez.gene.ids <- all.entrez.gene.ids[!is.na(all.entrez.gene.ids)]
 count.total.gene.ids <- length(all.entrez.gene.ids)
+
+diff.expressed.probe.ids <- rownames(result)
+diff.expressed.gene.ids <- annotate::getSYMBOL(diff.expressed.probe.ids, "hgu133a2")
+# remove NA values
+diff.expressed.gene.ids <- diff.expressed.gene.ids[!is.na(diff.expressed.gene.ids)]
+count.diff.expressed.gene.ids <- length(diff.expressed.gene.ids)
+
 
 # Show a table of the top 15 differentially expressed probesets along with 
 # their gene symbol, log fold change, average expression, t-score, p-value, adjusted p-value,
@@ -55,9 +62,3 @@ top.15.results <- cbind(gene.symbols=top.15.gene.symbols, top.15.results)
 top.15.results <- cbind(top.15.results$gene.symbols, top.15.results$logFC,
                         top.15.results$AveExpr, top.15.results$t, 
                         top.15.results$P.Value, top.15.results$adj.P.Val, top.15.results$B)
-top.15.results
-
-probe_ids <- row.names(result)
-convert <- annotate::getSYMBOL(probe_ids, "hgu133a2")
-length(which(is.na(convert)))
-length(probe_ids)
