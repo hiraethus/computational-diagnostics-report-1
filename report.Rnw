@@ -108,10 +108,23 @@ and is also included in the appendix of this document.
 source("q2_limma/expression_analysis.R")
 @
 \subsection{Results}
-\subsubsection{How many probesets do you find differentially expressed using a false discovery rate (FDR) of 0.05?}
+\subsubsection*{How many probesets do you find differentially expressed using a false discovery rate (FDR) of 0.05?}
 \Sexpr{num.diff.exp.probesets} are differentially expressed given an FDR of 0.05.
 
-%TODO add more answers
+\subsubsection*{How many unique entrez gene identifiers are in the dataset and how many unique entrez identifiers are differentially expressed?}
+\Sexpr{count.total.gene.ids} unique entrez gene identifiers are in the dataset and \Sexpr{count.diff.expressed.gene.ids} 
+unique entrez identifiers are differentially expressed (given an FDR of 0.05). For details of how these were created, 
+please see the script.
+
+\subsubsection*{Show a table of the top 15 differentially expressed probesets along with their gene symbol, log fold change, average expression, t-score, p-value, adjusted p-value, and B statistic}
+
+(For details of how this table was created, please see the script.)
+
+<<top15,results=tex>>=
+library(xtable)
+xtab <- xtable(top.15.results, caption = "Top 15 results", label="tab:top15")
+print(xtab)
+@
 
 % TODO: APPENDIX- Add all code at the end...will be horrible.
 \end{document}
