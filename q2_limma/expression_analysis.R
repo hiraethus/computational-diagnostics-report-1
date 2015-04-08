@@ -59,6 +59,8 @@ top.15.results <- head(result, 15)
 top.15.probe.ids <- row.names(top.15.results)
 top.15.gene.symbols <- annotate::getSYMBOL(top.15.probe.ids, "hgu133a2")
 top.15.results <- cbind(gene.symbols=top.15.gene.symbols, top.15.results)
-top.15.results <- cbind(top.15.results$gene.symbols, top.15.results$logFC,
+top.15.results <- data.frame(top.15.results$gene.symbols, top.15.results$logFC,
                         top.15.results$AveExpr, top.15.results$t, 
                         top.15.results$P.Value, top.15.results$adj.P.Val, top.15.results$B)
+names(top.15.results) <- substr(names(top.15.results), start = 16, stop=1000)
+row.names(top.15.results) <- top.15.probe.ids
