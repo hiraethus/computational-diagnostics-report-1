@@ -100,12 +100,12 @@ rm(list=ls())
 The script for performing this element of the assignment can be downloaded from the url 
 \begin{verbatim}
 https://raw.githubusercontent.com/hiraethus/computational-diagnostics-report-1/
-  master/q2_limma/expression_analysis.R
+  master/q2_and_q3_expression_analysis.R
 \end{verbatim}
 and is also included in the appendix of this document.
 
 <<echo=FALSE, print=FALSE, results=hide>>=
-source("q2_limma/expression_analysis.R")
+source("q2_and_q3_expression_analysis.R")
 @
 \subsection{Results}
 \subsubsection*{How many probesets do you find differentially expressed using a false discovery rate (FDR) of 0.05?}
