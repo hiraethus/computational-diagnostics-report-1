@@ -130,7 +130,7 @@ print(xtab)
 \section{Gene Ontology Analysis}
 
 \subsection{Running the script}
-The Gene Ontology Analysis is part of the same script used in Section~\ref{sec:genexpression}.
+The Gene Ontology Analysis is part of the same script used in Gene Expression section.
 
 \subsection{Results}
 \subsubsection*{How many terms are significantly enriched?}
