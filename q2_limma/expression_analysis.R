@@ -67,17 +67,43 @@ row.names(top.15.results) <- top.15.probe.ids
 
 # === q3 ====================================================================
 biocLite("topGO")
+library("topGO")
 all.genes <- result$adj.P.Val
 names(all.genes) <- row.names(result)
 
 ## define a function to select the "significant" genes
 topDiffGenes <- function(allScore) {
-  return(allScore < 0.05)
+  return(allScore <= 0.05)
 }
 
-bpGOdata <- new("topGOdata",
+# molecular function
+mf.GOdata <- new("topGOdata",
+                    ontology = "MF",
+                    allGenes = all.genes,
+                    geneSel = topDiffGenes,
+                    annot = annFUN.db,
+                    affyLib ="hgu133a2")
+mf.ks <- topGO::runTest(mf.GOdata, algorithm = "classic", statistic = "ks")
+mf.significant.go.terms <- length(which(score(mf.ks) <= 0.05))
+
+# biological process
+bp.GOdata <- new("topGOdata",
                     ontology = "BP",
                     allGenes = all.genes,
                     geneSel = topDiffGenes,
                     annot = annFUN.db,
                     affyLib ="hgu133a2")
+bp.ks <- topGO::runTest(bp.GOdata, algorithm = "classic", statistic = "ks")
+bp.significant.go.terms <- length(which(score(bp.ks) <= 0.05))
+
+# cellular components
+cc.GOdata <- new("topGOdata",
+                    ontology = "CC",
+                    allGenes = all.genes,
+                    geneSel = topDiffGenes,
+                    annot = annFUN.db,
+                    affyLib ="hgu133a2")
+cc.ks <- topGO::runTest(cc.GOdata, algorithm = "classic", statistic = "ks")
+cc.significant.go.terms <- length(which(score(cc.ks) <= 0.05))
+
+
