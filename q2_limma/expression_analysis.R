@@ -76,6 +76,9 @@ topDiffGenes <- function(allScore) {
   return(allScore <= 0.05)
 }
 
+# Q. How many terms are significantly enriched? Perform the analysis for Molecular Function,
+# Biological Process, and Cellular Components
+
 # molecular function
 mf.GOdata <- new("topGOdata",
                     ontology = "MF",
@@ -106,4 +109,6 @@ cc.GOdata <- new("topGOdata",
 cc.ks <- topGO::runTest(cc.GOdata, algorithm = "classic", statistic = "ks")
 cc.significant.go.terms <- length(which(score(cc.ks) <= 0.05))
 
-
+# Q. Show a table of the top 15 Gene Ontology Biological Process terms which are significantly 
+# enriched for your set of differentially expressed genes.
+bp.top.15 <- GenTable(bp.GOdata, classicKS= bp.ks, topNodes=15)
