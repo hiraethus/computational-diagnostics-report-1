@@ -148,8 +148,18 @@ False-Discovery Rate (FDR) of 0.05.
 enriched for your set of differentially expressed genes.}
 
 <<results=tex>>=
-xtab.go <- xtable(bp.top.15[c(1,2,6)], caption = "Top 15 GO results", label="tab:top15go")
+xtab.go <- xtable(bp.top.15[c(1,2,6)], 
+                  caption = "Top 15 GO results", label="tab:top15go")
 print(xtab.go)
 @
-% TODO: APPENDIX- Add all code at the end...will be horrible.
+
+As you can see from the Gene Ontology analysis, in terms of Biological Process, one of the mostly highly enriched 
+gene ontology is GO:0002526 which indicates an acute inflammatory response which could indicate cancer. As we are observing 
+breast cancer, it's also interesting to notice that another significantly enriched gene ontology is GO:0007565 associated 
+with female pregnancy.
+
+Other than these two gene ontologies, it does not appear that any of the other 15 gene ontologies are significantly enriched.
+% TODO: APPENDIX- Add all code at the end...will be horrible
+\newpage
+\section*{Appendix}
 \end{document}
