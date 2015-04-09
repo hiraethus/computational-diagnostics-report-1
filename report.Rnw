@@ -94,6 +94,7 @@ rm(list=ls())
 @
 
 \section{Differential Gene Expression Analysis}
+\label{sec:geneexpression}
 
 \subsection{Running the script}
 % make sure computational-diagnostics-report-1 public before submit
@@ -126,5 +127,29 @@ xtab <- xtable(top.15.results, caption = "Top 15 results", label="tab:top15")
 print(xtab)
 @
 
+\section{Gene Ontology Analysis}
+
+\subsection{Running the script}
+The Gene Ontology Analysis is part of the same script used in Section~\ref{sec:genexpression}.
+
+\subsection{Results}
+\subsubsection*{How many terms are significantly enriched?}
+
+\paragraph{Molecular Function} has \Sexpr{mf.significant.go.terms} that are significantly enriched given a 
+False-Discovery Rate (FDR) of 0.05.
+
+\paragraph{Biological Process} has \Sexpr{bp.significant.go.terms} that are significantly enriched given a 
+False-Discovery Rate (FDR) of 0.05.
+
+\paragraph{Cellular Components} has \Sexpr{cc.significant.go.terms} that are significantly enriched given a 
+False-Discovery Rate (FDR) of 0.05.
+
+\subsubsection*{Show a table of the top 15 Gene Ontology Biological Process terms which are significantly 
+enriched for your set of differentially expressed genes.}
+
+<<results=tex>>=
+xtab.go <- xtable(bp.top.15[c(1,2,6)], caption = "Top 15 GO results", label="tab:top15go")
+print(xtab.go)
+@
 % TODO: APPENDIX- Add all code at the end...will be horrible.
 \end{document}
